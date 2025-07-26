@@ -10,7 +10,7 @@ Encyclopedia
 <ul>
     {% for entry in entries %}
     <li>
-        <a href="">
+        <a href="{% url 'encyclopedia:entry_page' entry %}">
             {{ entry }}
         </a>
     </li>
