@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from . import util
+from markdown2 import markdown
 
 
 def index(request):
@@ -11,14 +11,20 @@ def index(request):
 
 def entry_page(request, title):
     if util.get_entry(title) == None:
-        return HttpResponse("Sorry, Your page was not found!")
+        return render(request, 
+                      "encyclopedia/error.html",
+                      {
+                          "title": "Error",
+                          "message": "Page not found!"
+                      })
     else:
-        context = dict()
-        for topic in util.list_entries:
-            if topic == title:
-                context["centent"] = title
-                break
+        content = util.get_entry(title)
+        html_content = markdown(content)
 
+        context = {
+            "title": title,
+            "content": html_content
+        }
         return render(request, 
                       "encyclopedia/entry_page.html",
                       context)
