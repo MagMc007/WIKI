@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from . import util
 from markdown2 import markdown
+from .models import NewPageForm
 
 
 def index(request):
@@ -50,3 +51,8 @@ def search_page(request):
         "matches": matches
     })   
 
+
+def new_page(request):
+    return render(request, "encyclopedia/new_page.html", {
+        "form": NewPageForm()
+    })
