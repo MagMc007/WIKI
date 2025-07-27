@@ -8,3 +8,10 @@ class NewPageForm(forms.Form):
         "placeholder": "Enter content here ...",
         "rows": 10, "cols": 50
     }))
+
+
+class EditPageForm(forms.Form):
+    Content = forms.CharField(widget=forms.Textarea(attrs={
+        "placeholder": "Enter content here ...",
+        "rows": 10, "cols": 50
+    }))

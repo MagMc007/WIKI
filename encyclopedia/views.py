@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from . import util
 from markdown2 import markdown
-from .models import NewPageForm
+from .models import NewPageForm, EditPageForm
 
 
 def index(request):
@@ -54,7 +54,7 @@ def search_page(request):
 
 def new_page(request):
     return render(request, "encyclopedia/new_page.html", {
-        "form": NewPageForm()
+        "form": NewPageForm(),
     })
 
 
@@ -64,5 +64,35 @@ def save_new_page(request):
         if form.is_valid():
             title = form.cleaned_data["title"]
             content = form.cleaned_data["Content"]
+            if title in util.list_entries():
+                # if the page already exists
+                return render(request, 
+                      "encyclopedia/error.html",
+                      {
+                          "title": "Error",
+                          "message": "Sorry, Page already exist!"
+                      })
             util.save_entry(title, content)
             return redirect("encyclopedia:entry_page", title=title)
+    
+
+def edit_page(request, title):
+    content = util.get_entry(title)
+    form = EditPageForm(initial={
+        "Content": content
+    })
+    return render(request, "encyclopedia/edit_page.html",
+                  {
+                      "page_title": title,
+                      "form": form
+                  })
+
+
+def save_page(request, title):
+    if request.method == "POST":
+        form = EditPageForm(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data["Content"]
+            util.save_entry(title, content)
+            return redirect("encyclopedia:entry_page", title=title)
+ 
