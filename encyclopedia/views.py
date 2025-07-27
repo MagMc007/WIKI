@@ -4,6 +4,8 @@ from markdown2 import markdown
 from .models import NewPageForm, EditPageForm
 from random import choice
 
+""" dislays index page from index.html """
+
 
 def index(request):
     return render(
@@ -11,6 +13,9 @@ def index(request):
         "encyclopedia/index.html",
         {"entries": util.list_entries(), "title": "Encyclopedia"},
     )
+
+
+""" provides url checking upon requesting some entry """
 
 
 def entry_page(request, title):
@@ -29,6 +34,9 @@ def entry_page(request, title):
         )
 
 
+"""  implements the functionalty of seaching for a page on the search bar """
+
+
 def search_page(request):
     query = request.GET.get("q", "").strip()
     entries = util.list_entries()
@@ -39,11 +47,13 @@ def search_page(request):
     for entry in entries:
         if entry.lower() == query.lower():
             return redirect("encyclopedia:entry_page", title=entry)
-    # for partial entry matching
-    for entry in entries:
-        if query.lower() in entry.lower():
+        # for partial entry matching
+        elif query.lower() in entry.lower():
             matches.append(entry)
     return render(request, "encyclopedia/search.html", {"matches": matches})
+
+
+""" will allow users to create a page of their own """
 
 
 def new_page(request):
@@ -54,6 +64,9 @@ def new_page(request):
             "form": NewPageForm(),
         },
     )
+
+
+""" newly created user page wil; be saved """
 
 
 def save_new_page(request):
@@ -73,12 +86,18 @@ def save_new_page(request):
             return redirect("encyclopedia:entry_page", title=title)
 
 
+""" existing page editing """
+
+
 def edit_page(request, title):
     content = util.get_entry(title)
     form = EditPageForm(initial={"Content": content})
     return render(
         request, "encyclopedia/edit_page.html", {"page_title": title, "form": form}
     )
+
+
+""" saves the edited page(not a newly created page """
 
 
 def save_page(request, title):
@@ -88,6 +107,9 @@ def save_page(request, title):
             content = form.cleaned_data["Content"]
             util.save_entry(title, content)
             return redirect("encyclopedia:entry_page", title=title)
+
+
+""" opens a random page for user """
 
 
 def get_random_page(request):
