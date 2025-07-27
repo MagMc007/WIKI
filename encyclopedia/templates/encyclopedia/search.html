@@ -1,20 +1,21 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-{{ title }}
+Matching results
 {% endblock %}
 
 {% block body %}
-<h1>All Pages</h1>
+<h1>Matching Pages</h1>
 
 <ul>
-    {% for entry in entries %}
+    {% for entry in matches %}
     <li>
         <a href="{% url 'encyclopedia:entry_page' entry %}">
             {{ entry }}
         </a>
     </li>
+    {% empty %}
+    <li>None</li>
     {% endfor %}
 </ul>
-
 {% endblock %}
