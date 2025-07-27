@@ -56,3 +56,13 @@ def new_page(request):
     return render(request, "encyclopedia/new_page.html", {
         "form": NewPageForm()
     })
+
+
+def save_new_page(request):
+    if request.method == "POST":
+        form = NewPageForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["Content"]
+            util.save_entry(title, content)
+            return redirect("encyclopedia:entry_page", title=title)

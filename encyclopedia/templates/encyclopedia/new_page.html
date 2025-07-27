@@ -5,7 +5,10 @@ New_page
 {% endblock %}
 
 {% block body %}
-<h1>Add a new form</h1><br>
-{{ form }}
-
+<h1>Add a new Page</h1><br>
+<form action="{% url 'encyclopedia:save_new_page' %}" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Save</button>
+</form>
 {% endblock %}
