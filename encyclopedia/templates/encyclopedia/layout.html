@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Magipedia{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
@@ -13,32 +13,36 @@
 
 <body>
     <div class="row">
-        <div class="sidebar col-lg-2 col-md-3">
-            <h2>Wiki</h2>
-            <form method="get" action="{% url 'encyclopedia:search_page' %}">
-                {% csrf_token %}
-                <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
-                <button type="submit">Search</button>
-            </form>
+        <div class="sidebar col-lg" style="flex: 0 0 19.5%;">
             <div>
-                <a href="{% url 'encyclopedia:index' %}">Home</a>
+                <img src="{% static 'encyclopedia/images/wiki.png' %}" alt="Wiki image">
             </div>
-            <div>
-                <a href="{% url 'encyclopedia:new_page' %}">
-                    Create New Page
-
+            <h2>Magipedia</h2>
+            <form method="get" action="{% url 'encyclopedia:search_page' %}" class="form-inline">
+                {% csrf_token %}
+                <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search Magipedia"
+                    aria-label="Search">
+                <button type="submit" class="btn btn-secondary">Search</button>
+            </form>
+            <div class="btn btn-light">
+                <a href="{% url 'encyclopedia:index' %}" class="btn btn-lg mb-2">
+                    Home
                 </a>
             </div>
-            <div>
-                <a href="{% url 'encyclopedia:random_page' %}">
+            <div class="btn btn-light">
+                <a href="{% url 'encyclopedia:new_page' %}" class="btn btn-lg mb-2">
+                    Create New Page
+                </a>
+            </div>
+            <div class="btn btn-light">
+                <a href="{% url 'encyclopedia:random_page' %}" class="btn btn-lg mb-2">
                     Random Page
                 </a>
-
             </div>
             {% block nav %}
             {% endblock %}
         </div>
-        <div class="main col-lg-10 col-md-9">
+        <div class="main col-lg-9 col-md-9">
             {% block body %}
             {% endblock %}
         </div>

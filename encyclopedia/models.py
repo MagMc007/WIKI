@@ -3,10 +3,14 @@ from django import forms
 
 
 class NewPageForm(forms.Form):
-    title = forms.CharField(max_length=100)
+    title = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={"class": "form-control"})
+    )
+
     Content = forms.CharField(
         widget=forms.Textarea(
-            attrs={"placeholder": "Enter content here ...", "rows": 10, "cols": 50}
+            attrs={"placeholder": "Enter content here ...", "rows": 10, "cols": 50, "class":"form-control"}
         )
     )
 
@@ -14,6 +18,6 @@ class NewPageForm(forms.Form):
 class EditPageForm(forms.Form):
     Content = forms.CharField(
         widget=forms.Textarea(
-            attrs={"placeholder": "Enter content here ...", "rows": 10, "cols": 50}
+            attrs={"placeholder": "Enter content here ...", "rows": 10, "cols": 50, "class":"form-control"}
         )
     )

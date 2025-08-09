@@ -8,7 +8,7 @@
 {% block body %}
 <form action="{% url 'encyclopedia:edit_page' title %}" method="post">
     {% csrf_token %}
-    <button type="submit">Edit Page</button>
+    <button type="submit" class="btn btn-secondary">Edit Page</button>
 </form>
 
 {{ content | safe }}

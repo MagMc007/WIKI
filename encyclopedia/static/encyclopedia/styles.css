@@ -28,11 +28,19 @@ textarea {
 }
 
 .sidebar {
-    background-color: #f0f0f0;
+    background-color: #998a8a;
     height: 100vh;
     padding: 20px;
 }
 
 .sidebar h2 {
     margin-top: 5px;
+}
+
+
+.list-group-item {
+    font-size: 1.25rem;
+    /* Increase font size */
+    padding: 1.25rem 1.5rem;
+    /* Increase padding: top/bottom and left/right */
 }
