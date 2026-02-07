@@ -17,7 +17,7 @@
             <div>
                 <img src="{% static 'encyclopedia/images/wiki.png' %}" alt="Wiki image">
             </div>
-            <h2>Magipedia</h2>
+            <h2>WIKI</h2>
             <form method="get" action="{% url 'encyclopedia:search_page' %}" class="form-inline">
                 {% csrf_token %}
                 <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search Magipedia"

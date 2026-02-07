@@ -9,11 +9,12 @@
 
 <ul>
     {% for entry in entries %}
-    <li class="list-group-item">
-        <a href="{% url 'encyclopedia:entry_page' entry %}">
+    <a href="{% url 'encyclopedia:entry_page' entry %}">
+        <li class="list-group-item">
+
             {{ entry }}
-        </a>
-    </li>
+        </li>
+    </a>
     {% endfor %}
 </ul>
 
